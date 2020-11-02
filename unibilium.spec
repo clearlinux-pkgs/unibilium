@@ -4,10 +4,10 @@
 #
 Name     : unibilium
 Version  : 2.0.0
-Release  : 2
+Release  : 3
 URL      : https://github.com/mauke/unibilium/archive/v2.0.0.tar.gz
 Source0  : https://github.com/mauke/unibilium/archive/v2.0.0.tar.gz
-Summary  : A terminfo parsing library
+Summary  : terminfo parser and utility functions
 Group    : Development/Tools
 License  : LGPL-3.0-only
 Requires: unibilium-lib = %{version}-%{release}
@@ -41,23 +41,24 @@ lib components for the unibilium package.
 
 %prep
 %setup -q -n unibilium-2.0.0
+cd %{_builddir}/unibilium-2.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1564500646
+export SOURCE_DATE_EPOCH=1604360884
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
-make  %{?_smp_mflags} PREFIX=/usr LIBDIR=/usr/lib64
+make  %{?_smp_mflags}  PREFIX=/usr LIBDIR=/usr/lib64
 
 
 %install
-export SOURCE_DATE_EPOCH=1564500646
+export SOURCE_DATE_EPOCH=1604360884
 rm -rf %{buildroot}
 %make_install PREFIX=/usr LIBDIR=/usr/lib64
 
@@ -66,7 +67,7 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/unibilium.h
 /usr/lib64/libunibilium.so
 /usr/lib64/pkgconfig/unibilium.pc
 /usr/share/man/man3/unibi_add_ext_bool.3.gz
